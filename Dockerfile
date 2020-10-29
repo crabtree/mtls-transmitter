@@ -1,4 +1,4 @@
-FROM golang:1.10-alpine as builder
+FROM golang:1.15-alpine as builder
 
 ARG DOCK_PKG_DIR=/go/src/github.com/crabtree/mtls-transmitter
 
@@ -7,7 +7,7 @@ COPY . ${DOCK_PKG_DIR}
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o mtls-transmitter ./cmd/transmitter
 
-FROM alpine:3.8 as certs
+FROM alpine:3.12 as certs
 
 RUN apk add -U --no-cache ca-certificates
 
