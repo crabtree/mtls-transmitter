@@ -2,12 +2,12 @@ package proxyhandler
 
 import (
 	"crypto/tls"
-	"fmt"
+	"log"
 	"net/http"
 	"net/http/httputil"
 )
 
-func Create(url string, cert tls.Certificate, skipSSL bool) http.HandlerFunc {
+func Create(url string, cert tls.Certificate, skipSSL bool, silent bool) http.HandlerFunc {
 	tlsConfig := tls.Config{
 		Certificates:       []tls.Certificate{cert},
 		InsecureSkipVerify: skipSSL,
@@ -27,7 +27,9 @@ func Create(url string, cert tls.Certificate, skipSSL bool) http.HandlerFunc {
 	}
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Proxing request to " + r.URL.String())
+		if !silent {
+			log.Printf("path=%s\n", r.URL.String())
+		}
 		proxy.ServeHTTP(w, r)
 	})
 }
