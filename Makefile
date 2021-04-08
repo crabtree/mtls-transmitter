@@ -1,4 +1,6 @@
 .PHONY: validate build
+IMAGE_NAME ?= crabtree/mtls-transmitter
+IMAGE_TAG ?= $(shell git rev-parse HEAD)
 
 validate: format
 	#==> Verify modules.
@@ -12,3 +14,7 @@ format:
 
 build:
 	go build -o mtls-transmitter ./cmd/transmitter
+
+image: validate
+	docker build -t $(IMAGE_NAME):$(IMAGE_TAG) -f Dockerfile .
+	docker tag $(IMAGE_NAME):$(IMAGE_TAG) $(IMAGE_NAME):latest
