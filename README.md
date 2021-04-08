@@ -42,3 +42,14 @@ $ docker build -t crabtree/mtls-transmitter .
 ```bash
 $ docker run --rm -v /path/to/cert-dir:/cert -p 8080:8080 crabtree/mtls-transmitter -cert /cert/cert.pem -key /cert/key.pem -url desired.host.com
 ```
+
+## Development
+
+Use the following:
+```bash
+make          # to format and validate changes
+make build    # to build the binary
+```
+
+See the [Makefile](Makefile) for additional options.
+
