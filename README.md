@@ -15,12 +15,17 @@ $ ./mtls-transmitter -cert=/path/to/cert.pem -key=/path/to/key.pem -url=desired.
 ```
 
 ### Parameters
+Parameters can also be set as flags or as environment variables, with flags
+attempting to take precedence.
 
-- cert - path to the client certifiacte, required
-- key - path to the client certificate key, required
-- url - hostname to which the proxy forwards the calls, required
-- port - the port on which the proxy listens on, optional, default 8080
-- skip-ssl - if defined the proxy will skip server certificate verification, optional, default false
+| Flag | Env Var | Description |
+| --- | --- | --- |
+| `-cert` | `CERT` | The path to the client certificate; **required** |
+| `-key` | `KEY` | The path to the client certificate key; **required** |
+| `-url` | `URL` | The `hostname:port` to which the proxy fowards requests; **required** |
+| `-port` | `PORT` | The port on which the proxy listens on; default: `8080` |
+| `-skip-ssl` | `SKIP_SSL` | If set to `true`, the proxy sill skip server certificate verification; default: `false` |
+| `-silent` | `SILENT` | If set to `true`, the proxy will not log proxied events; default: `false` |
 
 ## Running inside the docker container
 
@@ -30,7 +35,7 @@ $ ./mtls-transmitter -cert=/path/to/cert.pem -key=/path/to/key.pem -url=desired.
 $ docker build -t crabtree/mtls-transmitter .
 ```
 
-### Running 
+### Running
 
 >**NOTE:** To run mtls-transmitter inside the docker container you need to provide your client certificate to your container.
 
