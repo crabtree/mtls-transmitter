@@ -18,10 +18,10 @@ func main() {
 		printErrorAndExit("Error when loading cerificate, " + err.Error())
 	}
 
-	handler := proxyhandler.Create(opts.url, cert, opts.skipSSL)
+	handler := proxyhandler.Create(opts.url, cert, opts.skipSSL, opts.silent)
 
 	proxyserver.NewServer(http.DefaultServeMux, handler)
 
-	fmt.Println("mtls-transmitter is listening on port:", opts.port)
+	fmt.Printf("mtls-transmitter %v\n", opts)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", opts.port), nil))
 }
